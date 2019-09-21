@@ -19,7 +19,7 @@ type FizzbuzzParams struct {
 
 //Index
 func index(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Endpoints available:\nFizzbuzz generator: /fizzbuzz\nFizzbuzz statistics: /fizzbuzz/statistics")
+	fmt.Fprintf(w, "Endpoint available:\nFizzbuzz generator: /fizzbuzz\n")
 }
 
 //FizzbuzzHandler functions
