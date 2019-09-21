@@ -8,7 +8,7 @@ import (
 )
 
 // Struct declaration
-type Query struct {
+type FizzbuzzParams struct {
 	Int1 int
 	Int2 int
 	Limit int
@@ -17,12 +17,14 @@ type Query struct {
 }
 
 
-//
+//Index
 func index(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Endpoints available:\nFizzbuzz generator: /fizzbuzz\nFizzbuzz statistics: /fizzbuzz/statistics")
 }
 
-func isConformed(r *http.Request) (q Query, err error){
+//FizzbuzzHandler functions
+
+func isConformed(r *http.Request) (q FizzbuzzParams, err error){
 	var nbValues int
 
 	err = r.ParseForm()
@@ -76,7 +78,7 @@ func isConformed(r *http.Request) (q Query, err error){
 	return q, err
 }
 
-func doFizzbuzz(q Query) (fizzbuzzList string){
+func doFizzbuzz(q FizzbuzzParams) (fizzbuzzList string){
 	for i := 1; i <= q.Limit; i++ {
 		if i != 1 {
 			fizzbuzzList = fizzbuzzList + ","
@@ -118,9 +120,5 @@ func fizzbuzzHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Parameters defined:\n Int1: %d\n Int2: %d\n Limit: %d\n Str1: %s\n Str2: %s\n\n", q.Int1, q.Int2, q.Limit, q.Str1, q.Str2)
 	
 	// Print the fizzbuzzlist
-	fmt.Fprintf(w, "Result:\n %s\n", fizzbuzzList)
-}
-
-func fizzbuzzStatisticsHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Stats in progress\n")
+	fmt.Fprintf(w, "Result:\n%s\n", fizzbuzzList)
 }
