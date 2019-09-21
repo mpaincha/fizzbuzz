@@ -1,8 +1,6 @@
 package main
 
 import (
-	// "fmt"
-	// "html"
 	"log"
 	"net/http"
 
@@ -21,12 +19,3 @@ func main() {
 
 
 // example of URL expexted : http://localhost:8080/fizzbuzz?int1=3&int2=5&limit=100&str1=fizz&str2=buzz
-
-// Default value
-/*const (
-	int1 = 3
-	int2 = 5
-	limit = 100
-	str1 = "fizz"
-	str2 = "buzz"	
-)*/

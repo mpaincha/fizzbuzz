@@ -5,8 +5,6 @@ import (
 	"net/http"
 	"errors"
 	"strconv"
-	// "log"
-	// "github.com/gorilla/mux"
 )
 
 // Struct declaration
@@ -55,7 +53,6 @@ func isConformed(r *http.Request) (q Query, err error){
 			}		
 		}
 		case "str1": {
-			//check if is str
 			q.Str1 = r.FormValue("str1")
 		}
 		case "str2":
@@ -69,10 +66,35 @@ func isConformed(r *http.Request) (q Query, err error){
 	// Return error if there are not 5 parameters or if the same key is used many times
 	if nbValues != 5 {
 		err := errors.New("nb of values incorrect or key used many times\n")
-		fmt.Printf("nb value %d : %d %d %d %s %s\n", nbValues, q.Int1, q.Int2, q.Limit, q.Str1, q.Str2)
 		return q, err
 	}
 	return q, err
+}
+
+func doFizzbuzz(q Query) (fizzbuzzList string){
+	for i := 1; i <= q.Limit; i++ {
+		if i != 1 {
+			fizzbuzzList = fizzbuzzList + ","
+		} else if i == 1 {
+			fizzbuzzList =  fizzbuzzList + "\""
+		}
+		switch {
+		case i%q.Int1 == 0 && i%q.Int2 == 0: {
+
+			fizzbuzzList = fizzbuzzList + q.Str1 + q.Str2
+		}
+		case i%q.Int1 == 0:
+			fizzbuzzList = fizzbuzzList + q.Str1
+		case i%q.Int2 == 0:
+			fizzbuzzList = fizzbuzzList + q.Str2
+		default:
+			fizzbuzzList = fizzbuzzList + strconv.Itoa(i)
+		}
+		if i == q.Limit {
+			fizzbuzzList = fizzbuzzList + "\".\n"
+		}
+	}
+	return fizzbuzzList
 }
 
 func fizzbuzzHandler(w http.ResponseWriter, r *http.Request) {
@@ -82,8 +104,14 @@ func fizzbuzzHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Print(err)
 		fmt.Fprintf(w,"%s", err)
 		return
-	} else {
-		fmt.Printf("Conformed\n")
 	}
-	fmt.Fprintf(w, "Parameters defined:\n Int1: %d\n Int2: %d\n Limit: %d\n Str1: %s\n Str2: %s\n", q.Int1, q.Int2, q.Limit, q.Str1, q.Str2)
+
+	// Fizzbuzzlist generation
+	fizzbuzzList := doFizzbuzz(q)
+
+	// Print parameters defined in the URL 
+	fmt.Fprintf(w, "Parameters defined:\n Int1: %d\n Int2: %d\n Limit: %d\n Str1: %s\n Str2: %s\n\n", q.Int1, q.Int2, q.Limit, q.Str1, q.Str2)
+	
+	// Print the fizzbuzzlist
+	fmt.Fprintf(w, "Result:\n %s\n", fizzbuzzList)
 }
