@@ -10,7 +10,7 @@ import (
 func main() {
 	router := mux.NewRouter().StrictSlash(true)
 	
-	router.HandleFunc("/", index)
+	router.HandleFunc("/", indexHandler)
 	router.HandleFunc("/fizzbuzz/", fizzbuzzHandler)
 	log.Fatal(http.ListenAndServe(":8080", router))
 }

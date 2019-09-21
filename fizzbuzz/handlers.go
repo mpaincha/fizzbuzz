@@ -18,12 +18,11 @@ type FizzbuzzParams struct {
 
 
 //Index
-func index(w http.ResponseWriter, r *http.Request) {
+func indexHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Endpoint available:\nFizzbuzz generator: /fizzbuzz\n")
 }
 
 //FizzbuzzHandler functions
-
 func isConformed(r *http.Request) (q FizzbuzzParams, err error){
 	var nbValues int
 
@@ -105,6 +104,7 @@ func doFizzbuzz(q FizzbuzzParams) (fizzbuzzList string){
 }
 
 func fizzbuzzHandler(w http.ResponseWriter, r *http.Request) {
+	
 	// Check the conformity of the request
 	q, err := isConformed(r)
 	if err != nil{
