@@ -17,8 +17,9 @@ type Query struct {
 }
 
 
+//
 func index(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Welcome to fizzbuzz")
+	fmt.Fprintf(w, "Endpoints available:\nFizzbuzz generator: /fizzbuzz\nFizzbuzz statistics: /fizzbuzz/statistics")
 }
 
 func isConformed(r *http.Request) (q Query, err error){
@@ -58,16 +59,20 @@ func isConformed(r *http.Request) (q Query, err error){
 		case "str2":
 			q.Str2 = r.FormValue("str2")
 		default: {
-			err := errors.New("bad paramters\n")
+			err := errors.New("Bad parameter used\nPlease use these 5 keys: int1, int2, limit, str1, str2\nExample: http://localhost:8080/fizzbuzz?int1=3&int2=5&limit=100&str1=fizz&str2=buzz\n\n")
 			return q, err
 		}
 		}
 	}	
 	// Return error if there are not 5 parameters or if the same key is used many times
-	if nbValues != 5 {
-		err := errors.New("nb of values incorrect or key used many times\n")
+	if nbValues == 0 {
+		err := errors.New("To use Fizzbuzz, please add parameters to URL like this : http://localhost:8080/fizzbuzz?int1=3&int2=5&limit=100&str1=fizz&str2=buzz")
 		return q, err
-	}
+	} else if nbValues != 5 {
+		// Nb of values incorrect or key used many times
+		err := errors.New("Syntax error\nPlease use these 5 keys: int1, int2, limit, str1, str2\nExample: http://localhost:8080/fizzbuzz?int1=3&int2=5&limit=100&str1=fizz&str2=buzz\n")
+		return q, err
+	} 
 	return q, err
 }
 
@@ -101,8 +106,8 @@ func fizzbuzzHandler(w http.ResponseWriter, r *http.Request) {
 	// Check the conformity of the request
 	q, err := isConformed(r)
 	if err != nil{
-		fmt.Print(err)
-		fmt.Fprintf(w,"%s", err)
+		//fmt.Print(err) LOGS
+		fmt.Fprintf(w, "Syntax Error\nPlease, use numbers for int1, int2 and limit values.\nError details below:\n%s", err)
 		return
 	}
 
@@ -114,4 +119,8 @@ func fizzbuzzHandler(w http.ResponseWriter, r *http.Request) {
 	
 	// Print the fizzbuzzlist
 	fmt.Fprintf(w, "Result:\n %s\n", fizzbuzzList)
+}
+
+func fizzbuzzStatisticsHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Stats in progress\n")
 }

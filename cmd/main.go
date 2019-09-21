@@ -12,7 +12,7 @@ func main() {
 	
 	router.HandleFunc("/", index)
 	router.HandleFunc("/fizzbuzz/", fizzbuzzHandler)
-	
+	router.HandleFunc("/fizzbuzz/statistics", fizzbuzzStatisticsHandler)
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
 
