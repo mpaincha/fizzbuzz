@@ -9,17 +9,18 @@ import (
 	// "github.com/gorilla/mux"
 )
 
-
-func index(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Welcome to fizzbuzz")
-}
-
+// Struct declaration
 type Query struct {
 	Int1 int
 	Int2 int
 	Limit int
 	Str1 string
 	Str2 string
+}
+
+
+func index(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Welcome to fizzbuzz")
 }
 
 func isConformed(r *http.Request) (q Query, err error){
@@ -84,5 +85,5 @@ func fizzbuzzHandler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		fmt.Printf("Conformed\n")
 	}
-	fmt.Fprintf(w, "%d %d %d %s %s", q.Int1, q.Int2, q.Limit, q.Str1, q.Str2)
+	fmt.Fprintf(w, "Parameters defined:\n Int1: %d\n Int2: %d\n Limit: %d\n Str1: %s\n Str2: %s\n", q.Int1, q.Int2, q.Limit, q.Str1, q.Str2)
 }
