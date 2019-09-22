@@ -17,7 +17,8 @@ Packages to install:
 1 - Package Gorilla Mux
 import "github.com/gorilla/mux"
 
->> install command: go get -u github.com/gorilla/mux
+install command: 
+`go get -u github.com/gorilla/mux`
 
 readme.md https://github.com/gorilla/mux
 
@@ -26,4 +27,13 @@ readme.md https://github.com/gorilla/mux
 import "testing"
 import "github.com/stretchr/testify/assert"
 
->> install command:  go get github.com/stretchr/testify
+install command:
+`go get github.com/stretchr/testify`
+
+
+-------------
+
+Tests :
+
+Run test by using the comment:
+`go test`
