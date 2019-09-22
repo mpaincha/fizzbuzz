@@ -33,7 +33,25 @@ install command:
 
 -------------
 
-Tests :
+Tests:
 
 Run test by using the comment:
 `go test`
+
+
+-------------
+
+Improvements:
+
+Tests:
+- To add more tests
+
+Features:
+- To add the bonus
+
+Error/logs:
+- To add logs
+- To improve error management
+
+Readability:
+- To refactor code especially the isConformed function
