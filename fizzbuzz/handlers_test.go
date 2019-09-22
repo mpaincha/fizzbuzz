@@ -6,6 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+// Test the doFizzbuzz function
 func TestDoFizzbuzz(t *testing.T) {
 	var actualResult string
 	var expectedResult string
